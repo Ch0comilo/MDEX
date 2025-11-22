@@ -3,9 +3,9 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-st.title("Exploración de Datos (EDA)")
+st.title("Modelo BIBD")
 
-file = st.file_uploader("Sube un archivo CSV", type="csv")
+file = st.session_state.get("df")
 
 if file:
     df = pd.read_csv(file)

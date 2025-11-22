@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import statsmodels.api as sm
 
-st.title("Modelos Lineales")
+st.title("Matriz de Incidencia")
 
-file = st.file_uploader("Sube tu CSV", type="csv")
+file = st.session_state.get("df")
 
 if file:
     df = pd.read_csv(file)
