@@ -17,4 +17,3 @@ if file:
     st.dataframe(st.session_state.df.head())
 
 st.sidebar.info("Sube el archivo aquí y navega a las demás páginas.")
-
