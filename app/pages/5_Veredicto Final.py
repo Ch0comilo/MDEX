@@ -11,7 +11,7 @@ df = st.session_state.get("df")
 
 # Si no hay df cargado, mostrar aviso
 if df is None:
-    st.warning("⚠️ No se ha subido ningún archivo aún.")
+    st.warning("No se ha subido ningún archivo aún.")
     st.stop()
 
 # Mostrar primeras filas
