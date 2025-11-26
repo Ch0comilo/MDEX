@@ -91,18 +91,18 @@ sns.boxplot(data=df, x="Perfil_Catador", y="Puntaje_SCA", ax=ax)
 ax.set_title("Puntaje SCA según el Perfil del Catador")
 st.pyplot(fig)
 
-# ======================================================
-# TRANSFORMACIONES A NUMÉRICO
-# ======================================================
 st.header(" Transformaciones a valores numéricos")
+
+# Creamos una copia solo para correlación
+df_corr = df.copy()
 
 # Variedad A-E → 1-5
 variedad_map = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5}
-df["Variedad_Num"] = df["Variedad_Codigo"].map(variedad_map)
+df_corr["Variedad_Num"] = df_corr["Variedad_Codigo"].map(variedad_map)
 
 # Perfil Generoso/Estricto → 1/2
 perfil_map = {"Generoso": 1, "Estricto": 2}
-df["Perfil_Num"] = df["Perfil_Catador"].map(perfil_map)
+df_corr["Perfil_Num"] = df_corr["Perfil_Catador"].map(perfil_map)
 
 st.subheader(" Mapeos utilizados")
 st.write("### Variedad_Codigo → Variedad_Num")
@@ -112,21 +112,21 @@ st.write("### Perfil_Catador → Perfil_Num")
 st.dataframe(pd.DataFrame(perfil_map.items(), columns=["Perfil_Catador", "Código_Numérico"]))
 
 # Warnings por valores desconocidos
-if df["Variedad_Num"].isna().sum() > 0:
+if df_corr["Variedad_Num"].isna().sum() > 0:
     st.warning(" Hay valores en Variedad_Codigo que no son A–E.")
 
-if df["Perfil_Num"].isna().sum() > 0:
+if df_corr["Perfil_Num"].isna().sum() > 0:
     st.warning(" Hay valores en Perfil_Catador que no son Generoso/Estricto.")
-if df["Variedad_Num"].isna().sum() > 0:
-    st.warning(" Se encontraron valores en Variedad_Codigo que no son A–E.")
+
+
 # ======================================================
-# MATRIZ DE CORRELACIÓN
+# MATRIZ DE CORRELACIÓN — SOLO CON df_corr
 # ======================================================
-st.header(" Correlación entre Variables Numéricas")
+st.header(" Matriz de Correlación ")
 
 corr_cols = ["Catador_ID", "Puntaje_SCA", "Variedad_Num", "Perfil_Num"]
 
-fig, ax = plt.subplots(figsize=(6, 4))
-sns.heatmap(df[corr_cols].corr(), annot=True, cmap="coolwarm", ax=ax)
-ax.set_title("Matriz de Correlación")
+fig, ax = plt.subplots(figsize=(7, 5))
+sns.heatmap(df_corr[corr_cols].corr(), annot=True, cmap="coolwarm", ax=ax)
+ax.set_title("Matriz de Correlación con Variables Transformadas ")
 st.pyplot(fig)
