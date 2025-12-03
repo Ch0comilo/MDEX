@@ -50,18 +50,6 @@ if st.button("Ajustar Modelo Intrabloque"):
         st.subheader("Estimaciones del Modelo")
         st.write(modelo.summary())
 
-        # ----------------------------------------------------
-        #   PROMEDIOS AJUSTADOS POR TRATAMIENTO
-        # ----------------------------------------------------
-        st.subheader("Medias Ajustadas por Tratamiento (LSMeans)")
-
-        medios_ajustados = (
-            df.assign(pred=modelo.fittedvalues)
-            .groupby(col_trat)["pred"]
-            .mean()
-        )
-
-        st.write(medios_ajustados)
 
     except Exception as e:
         st.error(f"Error al ajustar el modelo: {e}")
